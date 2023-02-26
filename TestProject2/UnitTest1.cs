@@ -82,6 +82,24 @@ namespace TestProject1
             Assert.AreEqual(actual.InvoiceSummary.totalFare, expected.InvoiceSummary.totalFare);
         }
 
+        [TestCase(1, 2, 0, 10, 15, 15, 20)]   
+        public void GivenUserIdReturnInvoiceSummaryForDifferentCategory(int userId, int cabRideCount, double totalFare, int time1, double distance1, int time2, double distance2)
+        {
+            RideRepository rideRepository = new RideRepository();
+            Ride[] userRides = new Ride[]
+            {
+                new Ride(time1, distance1),
+                new Ride(time2, distance2)
+            };
+            rideRepository.AddUserRidesToRepository(userId, userRides, RideType.PREMIUM); //NORMAL
+            List<Ride> list = new List<Ride>();
+            list.AddRange(userRides);
+            InvoiceSummary userInvoice = new InvoiceSummary(cabRideCount, totalFare);
+
+            UserCabInvoiceService expected = new UserCabInvoiceService(list, userInvoice);
+            UserCabInvoiceService actual = rideRepository.ReturnInvoicefromRideRepository(userId);
+            Assert.AreEqual(actual.InvoiceSummary.totalFare, expected.InvoiceSummary.totalFare);
+        }   
 
     }
 }
