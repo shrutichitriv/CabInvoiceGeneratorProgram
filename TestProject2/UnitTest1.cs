@@ -23,22 +23,42 @@ namespace TestProject1
             Assert.AreEqual(actual, expected);
         }
 
+        //[Test]
+        //public void GivenMultipleRidesReturnAggregateFare()
+        //{
+        //    //Arrange
+        //    generateNormalFare = new CabInvoiceGen(RideType.NORMAL);
+        //    double actual, expected = 375;  //215+160 = 375/-
+        //    int time = 10; //10*1 =10
+        //    double distance = 15;  //15*10=150
+        //    Ride[] cabRides = new Ride[]
+        //    {
+        //        new Ride(10, 15), //160
+        //        new Ride(15, 20)  //15*1+20*10=215
+        //    };
+
+        //    //Act
+        //    actual = generateNormalFare.CalculateAgreegateFare(cabRides);
+        //    //Assert
+        //    Assert.AreEqual(actual, expected);
+        //}
+
         [Test]
-        public void GivenMultipleRidesReturnAggregateFare()
+        public void GivenInvoiceReturnNumOfRideTotalFareandAverageFare()
         {
             //Arrange
             generateNormalFare = new CabInvoiceGen(RideType.NORMAL);
-            double actual, expected = 375;  //215+160 = 375/-
-            int time = 10; //10*1 =10
-            double distance = 15;  //15*10=150
             Ride[] cabRides = new Ride[]
             {
                 new Ride(10, 15), //160
                 new Ride(15, 20)  //15*1+20*10=215
             };
+            double totalfare = 375;
+            InvoiceSummary expected = new InvoiceSummary(cabRides.Length, totalfare);  //215+160 = 375/-
 
             //Act
-            actual = generateNormalFare.CalculateAgreegateFare(cabRides);
+            var actual = generateNormalFare.CalculateAgreegateFare(cabRides);
+
             //Assert
             Assert.AreEqual(actual, expected);
         }
